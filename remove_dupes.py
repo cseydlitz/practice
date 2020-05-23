@@ -41,7 +41,7 @@ class LinkedList:
                     next_val = next_val.next_node
             active_node = active_node.next_node
 
-def do_the_thing(vals):
+def create_and_dedupe_ll(vals):
     LL = LinkedList()
     for val in vals:
         LL.insert_into_ll(val)
