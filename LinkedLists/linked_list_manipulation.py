@@ -25,6 +25,9 @@ class LinkedList:
 
     def find_k_to_last(self, k):
         """ Prompt: Implement an algorithm to find the kth to last element of a singly linked list
+
+            Parameters:
+                k: integer
         """
         count = 1
         active_node = self.head
@@ -57,16 +60,44 @@ class LinkedList:
 
             active_node = active_node.next_node
 
-def manipulate_ll(vals, k=None, dedupe=False):
+    def delete_middle_node(self, node):
+        """ Prompt: Write a function to delete specific node from list
+
+            Parameters:
+                node: int
+            Restrictions:
+                Cannot delete first or last item in list
+        """
+
+        if node == self.head.data:
+            return False
+
+        prev_node = self.head
+        active_node = prev_node.next_node
+
+        while active_node:
+            if prev_node.next_node is None and prev_node.data == node:
+                return False
+            if active_node.data == node:
+                prev_node.next_node = active_node.next_node
+            else:
+                prev_node = prev_node.next_node
+
+            active_node = prev_node.next_node
+
+def manipulate_ll(vals, k=None, n=None, dedupe=False):
     """ Function to execute desired manipulation. 
     
-        Required: 
+        Parameters: 
              vals: list of integers
-        Optional:
-             k: integer
-                 If a value of k is provided, it will find the kth to the last value of the list
-             dedupe: boolean
-                 If dedupe=True, it will remove duplicates
+            Optional:
+                 k: integer
+                     If a value of k is provided, it will find the kth to the last value of the list
+                 dedupe: boolean
+                     If dedupe=True, it will remove duplicates
+                 n: integer
+                     If a value of n is provided, it will delete that node from the list as long as it
+                     is not the first or last node in the list
     """
     LL = LinkedList()
     for val in vals:
@@ -81,6 +112,12 @@ def manipulate_ll(vals, k=None, dedupe=False):
         LL.print_ll()
 
     if k:
-       val = LL.find_k_to_last(k)
-       print(f"{k}-to-last value of list: {val}")
+        val = LL.find_k_to_last(k)
+        print(f"{k}-to-last value of list: {val}")
 
+    if n:
+        if LL.delete_middle_node(n): 
+            print(f"Removed {n} from the list:")
+            LL.print_ll() 
+        else:
+            print(f"Can't remove first of last item from the list (you tried to return {n})")
